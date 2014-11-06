@@ -1,3 +1,7 @@
+plugins {
+    id "eu.appsatori.fatjar" version "0.3"
+}
+
 apply plugin: 'java'
 
 version = '0.1-SNAPSHOT'
@@ -6,10 +10,19 @@ group = 'no.bitraf.overlord'
 sourceCompatibility = 1.8
 
 repositories {
-  jcenter()
+    jcenter()
 }
 
-
 dependencies {
-  compile 'io.dropwizard:dropwizard-core:0.7.1'
+    compile 'io.dropwizard:dropwizard-core:0.7.1'
+}
+
+fatJar {
+    // We need to add the main class to the manifest, otherwise the JAR won't start.
+    manifest {
+        attributes 'Main-Class': 'no.bitraf.overlord.ServerApp'
+    }
+
+    // We have to exclude signature files from the fat JAR, otherwise we'll get invalid signature file digest errors.
+    exclude 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.SF'
 }
