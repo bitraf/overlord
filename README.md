@@ -1,4 +1,4 @@
 overlord
 ========
 
-member database and central api for hackarspace management
+member database and central api for hackerspace management
