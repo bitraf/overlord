@@ -3,6 +3,7 @@ package no.bitraf.overlord;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import no.bitraf.overlord.door.DoorResource;
 
 public final class ServerApp
     extends Application<ServerConfig>
@@ -16,6 +17,7 @@ public final class ServerApp
     public void run( final ServerConfig configuration, final Environment environment )
         throws Exception
     {
+        environment.jersey().register( DoorResource.class );
     }
 
     public static void main( final String... args )
