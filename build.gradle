@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+version = '0.1-SNAPSHOT'
+group = 'no.bitraf.overlord'
+
+sourceCompatibility = 1.8
+
+repositories {
+  jcenter()
+}
+
+
+dependencies {
+  compile 'io.dropwizard:dropwizard-core:0.7.1'
+}
