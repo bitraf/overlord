@@ -15,17 +15,14 @@ public final class MemberEntity
     @Column(name = "id")
     protected int id;
 
-    @Column(name = "timestamp")
-    protected Date timestamp;
-
     @Column(name = "full_name")
     protected String fullName;
 
     @Column(name = "email")
     protected String email;
 
-    @Column(name = "type")
-    protected String type;
+    @Column(name = "date")
+    protected Date date;
 
     @Column(name = "account")
     protected int account;
@@ -36,20 +33,15 @@ public final class MemberEntity
     @Column(name = "price")
     protected int price;
 
-    @Column(name = "recurrence")
-    protected String recurrence;
-
     @Column(name = "flag")
     protected String flag;
+
+    @Column(name = "recurrence")
+    protected String recurrence;
 
     public int getId()
     {
         return id;
-    }
-
-    public Date getTimestamp()
-    {
-        return timestamp;
     }
 
     public String getFullName()
@@ -62,9 +54,9 @@ public final class MemberEntity
         return email;
     }
 
-    public String getType()
+    public Date getDate()
     {
-        return type;
+        return date;
     }
 
     public int getAccount()
@@ -82,14 +74,14 @@ public final class MemberEntity
         return price;
     }
 
-    public String getRecurrence()
-    {
-        return recurrence;
-    }
-
     public String getFlag()
     {
         return flag;
+    }
+
+    public String getRecurrence()
+    {
+        return recurrence;
     }
 }
 
