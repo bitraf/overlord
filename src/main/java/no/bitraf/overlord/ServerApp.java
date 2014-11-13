@@ -13,6 +13,9 @@ public class ServerApp
     public static void main( final String... args )
         throws Exception
     {
-        SpringApplication.run( ServerApp.class, args );
+        final SpringApplication app = new SpringApplication( ServerApp.class );
+        app.setHeadless( true );
+        app.setShowBanner( true );
+        app.run( args );
     }
 }
