@@ -1,4 +1,4 @@
-package no.bitraf.overlord.door;
+package no.bitraf.overlord.rest.door;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
