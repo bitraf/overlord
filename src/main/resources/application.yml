@@ -1,0 +1,10 @@
+
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost/test
+#    username: dbuser
+#    password: dbpass
+#    driver-class-name: org.postgresql.Driver
+
+management:
+  context-path: /manage
