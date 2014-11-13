@@ -9,7 +9,15 @@ public final class MemberDetails
     @JsonProperty
     protected int id;
 
-    // TODO: Should not be exposed directly. Only here to see raw data from database.
     @JsonProperty
     protected MemberEntity raw;
+
+    /**
+     *
+     * account.type = ['user' or 'product']
+     *
+     *
+     *
+     *
+     */
 }

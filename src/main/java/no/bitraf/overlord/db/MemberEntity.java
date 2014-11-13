@@ -24,8 +24,11 @@ public final class MemberEntity
     @Column(name = "date")
     protected Date date;
 
-    @Column(name = "account")
-    protected int account;
+    /*
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account")
+    protected AccountEntity account;
+    */
 
     @Column(name = "organization")
     protected String organization;
@@ -59,10 +62,12 @@ public final class MemberEntity
         return date;
     }
 
-    public int getAccount()
+    /*
+    public AccountEntity getAccount()
     {
         return account;
     }
+    */
 
     public String getOrganization()
     {

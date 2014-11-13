@@ -41,7 +41,7 @@ public final class MemberResource
             return toMemberDetails( entity );
         }
 
-        throw new MemberNotFoundException( id );
+        throw new NotFoundException( "Member " + id + " not found" );
     }
 
     private MemberInfo toMemberInfo( final MemberEntity entity )
