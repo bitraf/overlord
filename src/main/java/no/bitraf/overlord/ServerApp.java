@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableAutoConfiguration
 @ComponentScan
+@EnableAutoConfiguration
 public class ServerApp
 {
     public static void main( final String... args )
