@@ -1,17 +1,16 @@
 package no.bitraf.overlord.door;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("door")
-@Produces(MediaType.APPLICATION_JSON)
+@RestController
 public final class DoorResource
 {
-    @GET
+    @RequestMapping("/door")
     public DoorStatus status()
     {
-        return new DoorStatus();
+        final DoorStatus status = new DoorStatus();
+        status.setLocked( false );
+        return status;
     }
 }

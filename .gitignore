@@ -15,6 +15,9 @@ hs_err_pid*
 .gradle
 build
 
+# maven files
+target
+
 # Intellij files
 *.iml
 .idea
