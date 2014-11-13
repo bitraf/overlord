@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
@@ -13,12 +14,13 @@ import no.bitraf.overlord.db.MemberEntity;
 import no.bitraf.overlord.db.MemberRepository;
 
 @RestController
+@RequestMapping("/member")
 public final class MemberResource
 {
     @Autowired
     protected MemberRepository repository;
 
-    @RequestMapping("/member")
+    @RequestMapping(method = RequestMethod.GET)
     public List<MemberInfo> getAll()
     {
         final List<MemberInfo> result = Lists.newArrayList();
@@ -30,7 +32,7 @@ public final class MemberResource
         return result;
     }
 
-    @RequestMapping("/member/{id}")
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public MemberDetails getDetails( @PathVariable(value = "id") final int id )
     {
         final MemberEntity entity = this.repository.findOne( id );
@@ -54,8 +56,7 @@ public final class MemberResource
     {
         final MemberDetails result = new MemberDetails();
         result.id = entity.getId();
-        result.fullName = entity.getFullName();
-        result.email = entity.getEmail();
+        result.raw = entity;
         return result;
     }
 }
