@@ -4,11 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public final class MemberNotFoundException
+public final class NotFoundException
     extends RuntimeException
 {
-    public MemberNotFoundException( final int id )
+    public NotFoundException( final String message )
     {
-        super( "Member " + id + " not found" );
+        super( message );
     }
 }
+

@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.1.108:5432/p2k12
+    url: jdbc:postgresql://192.168.59.103:5432/postgres
     username: p2k12
     password: passord
     driver-class-name: org.postgresql.Driver
