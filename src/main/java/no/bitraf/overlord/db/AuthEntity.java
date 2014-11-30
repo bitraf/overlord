@@ -8,13 +8,13 @@ public class AuthEntity {
 
     @Id
     @Column(name = "account")
-    private int account;
+    protected int account;
 
     @Column(name = "realm")
-    private String realm;
+    protected String realm;
 
     @Column(name = "data")
-    private String data;
+    protected String data;
 
     public int getAccount() {
         return account;
