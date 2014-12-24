@@ -1,7 +1,7 @@
 # overlord
 
 
-Member database and central api for hackerspace management based on [Dropwizard](http://dropwizard.io/)
+Member database and central api for hackerspace management based on [Dropwizard](http://dropwizard.io/).
 
 
 ## api documentation/testing frontend
