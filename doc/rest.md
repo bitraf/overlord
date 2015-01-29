@@ -140,6 +140,7 @@ Creates a new member.
     POST /v1/members
 
     {
+        "account": 56,
         "fullName": "John Doe",
         "email": "john@doe.com",
         "joinDate", "2014-11-12",
@@ -164,3 +165,124 @@ Creates a new member.
         "flag": "m_office",
         "recurrence: "1 mon"
     }
+
+
+## Account Resource
+
+One account can have multiple members.
+
+### List accounts
+
+    GET /v1/accounts
+
+#### Result
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+        "page: "0"
+        "count": "1",
+        "total": "4",
+        "result": [
+            {
+                "id": 56,
+                "name": "john",
+                "lastBilled": "2014-11-12"
+            }
+        ]
+    }
+
+
+### Get account by id
+
+Returns a single account by id.
+
+    GET /v1/accounts/{id}
+
+#### Result
+
+    HTTP/1.1 200 OK
+    Content-Type: application/json; charset=utf-8
+
+    {
+        "id": 56,
+        "name": "john",
+        "lastBilled": "2014-11-12",
+        "members:" [
+            {
+                "id": 199,
+                "fullName": "John Doe",
+                "href": "http://localhost:8080/v1/members/199"
+            }
+        ]
+    }
+
+### Delete account
+
+Deletes a single account.
+
+    DELETE /v1/accounts/{id}
+
+#### Result
+
+    HTTP/1.1 204 No Content
+
+
+### Update account
+
+Updates an existing account.
+
+    POST /v1/accounts/{id}
+
+    {
+        "name": "john",
+        "lastBilled": "2014-11-12"
+    }
+
+#### Result
+
+    HTTP/1.1 200 OK
+
+    {
+        "id": 56,
+        "name": "john",
+        "lastBilled": "2014-11-12",
+        "members:" [
+            {
+                "id": 199,
+                "fullName": "John Doe",
+                "href": "http://localhost:8080/v1/members/199"
+            }
+        ]
+    }
+
+### Create account
+
+Creates a new account.
+
+    POST /v1/accounts
+
+    {
+        "name": "john",
+        "lastBilled": "2014-11-12"
+    }
+
+#### Result
+
+    HTTP/1.1 201 Created
+    Location: http://localhost:8080/v1/accounts/59
+
+    {
+        "id": 56,
+        "name": "john",
+        "lastBilled": "2014-11-12",
+        "members:" [
+            {
+                "id": 199,
+                "fullName": "John Doe",
+                "href": "http://localhost:8080/v1/members/199"
+            }
+        ]
+    }
+
