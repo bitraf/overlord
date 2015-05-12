@@ -5,6 +5,7 @@ import (
 
 	"github.com/bitraf/overlord/config"
 	"github.com/bitraf/overlord/log"
+	"github.com/bitraf/overlord/rest"
 	"github.com/codegangsta/cli"
 )
 
@@ -35,4 +36,6 @@ func main() {
 func start(ctx *cli.Context) {
 	log.Configure(ctx)
 	config.Load(ctx)
+
+	rest.StartServer()
 }

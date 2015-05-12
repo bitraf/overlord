@@ -1,5 +1,5 @@
 server:
-  port: 2345
+  addr: :2345
 database:
   user: postgres
   password: postgres

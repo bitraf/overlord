@@ -10,7 +10,7 @@ import (
 )
 
 type Server struct {
-	Port int
+	Addr string
 }
 
 type Database struct {
@@ -25,7 +25,7 @@ type Config struct {
 
 var C Config = Config{
 	Server{
-		Port: 1234,
+		Addr: ":1234",
 	},
 	Database{
 		User:     "sa",

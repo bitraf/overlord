@@ -3,8 +3,9 @@ package rest
 import (
 	"net/http"
 
+	"github.com/bitraf/overlord/config"
+	"github.com/bitraf/overlord/log"
 	"github.com/labstack/echo"
-	mw "github.com/labstack/echo/middleware"
 )
 
 func handleStatus(c *echo.Context) *echo.HTTPError {
@@ -13,9 +14,11 @@ func handleStatus(c *echo.Context) *echo.HTTPError {
 
 func StartServer() {
 	e := echo.New()
-	e.Use(mw.Logger)
+	e.Use(Logger)
 
 	e.Get("/", handleStatus)
 
-	e.Run(":1323")
+	addr := config.C.Server.Addr
+	log.Infof("Running server.", log.Fields{"addr": addr})
+	e.Run(addr)
 }
