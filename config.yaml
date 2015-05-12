@@ -1,0 +1,5 @@
+server:
+  port: 2345
+database:
+  user: postgres
+  password: postgres
