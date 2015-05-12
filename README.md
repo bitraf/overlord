@@ -24,6 +24,8 @@ The database schema is based on the existing p2k12 database to ease the migratio
 
 * Command line parser (https://github.com/codegangsta/cli).
 * Yaml for configuration (https://github.com/go-yaml/yaml).
+* Yaml for configuration (https://github.com/olebedev/config).
+* Configuration library (https://github.com/spf13/viper).
 * Echo for rest services (https://github.com/labstack/echo).
 * Gorm for database to object mapping (https://github.com/jinzhu/gorm).
 * Unify the logging into logrus? (https://github.com/Sirupsen/logrus).
