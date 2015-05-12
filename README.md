@@ -1,13 +1,35 @@
-# overlord
+# Project Overlord
 
+Member database and central API for hackerspace management built with [Go](https://golang.org/).
 
-Member database and central api for hackerspace management based on [Dropwizard](http://dropwizard.io/).
+## Building
 
+Install go (https://golang.org/) and do the following:
 
-## api documentation/testing frontend
-We use [Swagger](http://swagger.io/) to document the api.
+    go build
+
+Start using...
+
+    ./overlord
+
+Show help for options...
+
+    ./overlord --help
 
 ## Database backend
+
 The database schema is based on the existing p2k12 database to ease the migration.
 
+## Libraries to use
 
+* Command line parser (https://github.com/codegangsta/cli).
+* Yaml for configuration (https://github.com/go-yaml/yaml).
+* Echo for rest services (https://github.com/labstack/echo).
+* Gorm for database to object mapping (https://github.com/jinzhu/gorm).
+* Unify the logging into logrus? (https://github.com/Sirupsen/logrus).
+
+## TODO
+
+* Load settings via configuration using yaml with cli overrides.
+* Configure database driver using the loaded settings.
+* Configure rest server using the loaded settings.
