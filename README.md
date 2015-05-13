@@ -32,6 +32,4 @@ The database schema is based on the existing p2k12 database to ease the migratio
 
 ## TODO
 
-* -Load settings via configuration using yaml with cli overrides.-
 * Configure database driver using the loaded settings.
-* Configure rest server using the loaded settings.
