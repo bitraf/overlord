@@ -47,7 +47,7 @@ func Load(ctx *cli.Context) {
 
 	data, err := ioutil.ReadFile(name)
 	if err != nil {
-		log.Panicf("Could not find config file.", fields)
+		log.Panicf(err.Error(), fields)
 	}
 
 	log.Debugf("Reading config file.", fields)
