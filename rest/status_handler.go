@@ -17,8 +17,6 @@ func (server *Server) handleStatus(c *echo.Context) *echo.HTTPError {
 	now := time.Now()
 	duration := now.Sub(server.startTime).String()
 
-	server.db.FindMembers()
-
 	res := Status{
 		Version: config.C.Version,
 		Uptime:  duration,
