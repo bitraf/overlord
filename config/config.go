@@ -19,21 +19,24 @@ type Database struct {
 }
 
 type Config struct {
-	Server
-	Database
+	Version  string
+	Server   Server
+	Database Database
 }
 
 var C Config = Config{
-	Server{
+	Server: Server{
 		Addr: ":1234",
 	},
-	Database{
+	Database: Database{
 		User:     "sa",
 		Password: "password",
 	},
 }
 
 func Load(ctx *cli.Context) {
+	C.Version = ctx.App.Version
+
 	if !ctx.IsSet("config") {
 		log.Debug("Config file not set. Using defaults.")
 		return

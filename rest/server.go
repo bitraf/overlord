@@ -1,24 +1,34 @@
 package rest
 
 import (
-	"net/http"
+	"time"
 
 	"github.com/bitraf/overlord/config"
+	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/log"
 	"github.com/labstack/echo"
 )
 
-func handleStatus(c *echo.Context) *echo.HTTPError {
-	return c.String(http.StatusOK, "Hello, World!\n")
+type Server struct {
+	startTime time.Time
+	db        *db.Database
 }
 
-func StartServer() {
+func New(db *db.Database) Server {
+	return Server{
+		db: db,
+	}
+}
+
+func (server *Server) Start() {
 	e := echo.New()
 	e.Use(Logger)
 
-	e.Get("/", handleStatus)
+	e.Get("/status", server.handleStatus)
 
 	addr := config.C.Server.Addr
-	log.Infof("Running server.", log.Fields{"addr": addr})
+	log.Infof("Starting rest endpoins", log.Fields{"addr": addr})
+
+	server.startTime = time.Now()
 	e.Run(addr)
 }

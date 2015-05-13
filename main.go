@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/bitraf/overlord/config"
+	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/log"
 	"github.com/bitraf/overlord/rest"
 	"github.com/codegangsta/cli"
@@ -16,7 +17,7 @@ func main() {
 	app.Name = "overlord"
 	app.Usage = "Project Overlord"
 	app.Version = APP_VER
-	app.Action = start
+	app.Action = action
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "config",
@@ -33,9 +34,14 @@ func main() {
 	app.Run(os.Args)
 }
 
-func start(ctx *cli.Context) {
+func action(ctx *cli.Context) {
 	log.Configure(ctx)
+
+	log.Infof("Starting Overlord", log.Fields{"version": APP_VER})
+
 	config.Load(ctx)
 
-	rest.StartServer()
+	db := db.New()
+	server := rest.New(&db)
+	server.Start()
 }

@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/bitraf/overlord/log"
@@ -22,7 +23,7 @@ func Logger(h echo.HandlerFunc) echo.HandlerFunc {
 			"status": n, "time": end.Sub(start),
 		}
 
-		log.Infof(m+" "+p, fields)
+		log.Infof(fmt.Sprintf("%s %s", m, p), fields)
 		return nil
 	}
 }
