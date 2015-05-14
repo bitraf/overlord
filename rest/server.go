@@ -25,6 +25,8 @@ func (server *Server) Start() {
 	e.Use(Logger)
 
 	e.Get("/status", server.handleStatus)
+	e.Get("/checkins", server.getCheckins)
+	e.Get("/checkins/:id", server.getCheckin)
 
 	addr := config.C.Server.Addr
 	log.Infof("Starting rest endpoins", log.Fields{"addr": addr})

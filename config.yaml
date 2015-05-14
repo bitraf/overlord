@@ -1,5 +1,7 @@
 server:
   addr: :2345
 database:
-  user: postgres
-  password: postgres
+  url: postgres
+  pool:
+    maxIdle: 10
+    maxOpen: 100

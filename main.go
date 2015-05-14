@@ -42,6 +42,8 @@ func action(ctx *cli.Context) {
 	config.Load(ctx)
 
 	db := db.New()
+	db.Open()
+
 	server := rest.New(&db)
 	server.Start()
 }
