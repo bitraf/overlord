@@ -5,6 +5,6 @@ import (
 	"github.com/labstack/echo"
 )
 
-func (server *Server) error(c *echo.Context, e model.Error) *echo.HTTPError {
-	return c.JSON(e.Code, e)
+func errorJson(c *echo.Context, code int, message string) *echo.HTTPError {
+	return c.JSON(code, model.Error{Code: code, Message: message})
 }

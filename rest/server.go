@@ -24,14 +24,23 @@ func (server *Server) Start() {
 	e := echo.New()
 	e.Use(Logger)
 
-	e.Get("/status", server.getStatus)
-	e.Get("/checkins", server.getCheckins)
-	e.Get("/events", server.getEvents)
-	e.Get("/auths", server.getAuthEntries)
+	addGet(e, "/status", server.getStatus)
+	addGet(e, "/checkins", server.getCheckins)
+	addGet(e, "/events", server.getEvents)
+	addGet(e, "/auths", server.getAuthEntries)
+	addGet(e, "/users", server.getUsers)
+	addGet(e, "/users/:id", server.getUserById)
+	addGet(e, "/members", server.getMembers)
+	addGet(e, "/members/:id", server.getMemberById)
 
 	addr := config.C.Server.Addr
 	log.Infof("Starting rest endpoins", log.Fields{"addr": addr})
 
 	server.startTime = time.Now()
 	e.Run(addr)
+}
+
+func addGet(e *echo.Echo, path string, handler echo.Handler) {
+	e.Get(path, handler)
+	e.Head(path, handler)
 }
