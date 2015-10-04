@@ -5,19 +5,15 @@ import (
 	"time"
 
 	"github.com/bitraf/overlord/config"
+	"github.com/bitraf/overlord/model"
 	"github.com/labstack/echo"
 )
 
-type Status struct {
-	Version string `json:"version"`
-	Uptime  string `json:"uptime"`
-}
-
-func (server *Server) handleStatus(c *echo.Context) *echo.HTTPError {
+func (server *Server) getStatus(c *echo.Context) *echo.HTTPError {
 	now := time.Now()
 	duration := now.Sub(server.startTime).String()
 
-	res := Status{
+	res := model.Status{
 		Version: config.C.Version,
 		Uptime:  duration,
 	}

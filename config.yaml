@@ -1,7 +1,8 @@
 server:
   addr: :2345
 database:
-  url: postgres
+  url: postgres://postgres:postgres@192.168.99.100:5432/postgres?sslmode=disable
+  driver: postgres
   pool:
     maxIdle: 10
     maxOpen: 100

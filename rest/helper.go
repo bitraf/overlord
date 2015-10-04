@@ -6,6 +6,11 @@ import (
 	"github.com/labstack/echo"
 )
 
+func hasParam(c *echo.Context, name string) bool {
+	str := stringParam(c, name, "")
+	return len(str) > 0
+}
+
 func stringParam(c *echo.Context, name string, def string) string {
 	str := c.Param(name)
 

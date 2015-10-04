@@ -24,9 +24,10 @@ func (server *Server) Start() {
 	e := echo.New()
 	e.Use(Logger)
 
-	e.Get("/status", server.handleStatus)
+	e.Get("/status", server.getStatus)
 	e.Get("/checkins", server.getCheckins)
-	e.Get("/checkins/:id", server.getCheckin)
+	e.Get("/events", server.getEvents)
+	e.Get("/auths", server.getAuthEntries)
 
 	addr := config.C.Server.Addr
 	log.Infof("Starting rest endpoins", log.Fields{"addr": addr})

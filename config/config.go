@@ -14,13 +14,10 @@ type Server struct {
 }
 
 type Database struct {
-	Name     string
-	Addr     string
-	User     string
-	Password string
-	Options  string
-	ShowSQL  bool
-	Pool     Pool
+	Driver  string
+	Url     string
+	ShowSQL bool
+	Pool    Pool
 }
 
 type Pool struct {
@@ -39,12 +36,9 @@ var C Config = Config{
 		Addr: ":1234",
 	},
 	Database: Database{
-		Name:     "postgres",
-		Addr:     "192.168.59.103:5432",
-		User:     "p2k12",
-		Password: "password",
-		Options:  "sslmode=disable",
-		ShowSQL:  true,
+		Driver:  "postgres",
+		Url:     "postgres://postgres:postgres@192.168.99.100:5432/postgres?sslmode=disable",
+		ShowSQL: true,
 		Pool: Pool{
 			MaxIdle: 10,
 			MaxOpen: 100,

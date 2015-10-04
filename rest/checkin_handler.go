@@ -1,5 +1,6 @@
 package rest
 
+/*
 import (
 	"fmt"
 	"net/http"
@@ -69,3 +70,4 @@ func (server *Server) getCheckins(c *echo.Context) *echo.HTTPError {
 
 	return c.JSON(http.StatusOK, toCheckins(query))
 }
+*/

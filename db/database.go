@@ -1,8 +1,6 @@
 package db
 
 import (
-	"fmt"
-
 	"github.com/bitraf/overlord/config"
 	"github.com/bitraf/overlord/log"
 
@@ -20,10 +18,7 @@ func New() Database {
 
 func (db *Database) Open() {
 	conf := config.C.Database
-	url := fmt.Sprintf("postgres://%s:%s@%s/%s?%s", conf.User, conf.Password,
-		conf.Addr, conf.Name, conf.Options)
-
-	engine, err := gorm.Open("postgres", url)
+	engine, err := gorm.Open(conf.Driver, conf.Url)
 	if err != nil {
 		log.Panic(err.Error())
 	}
