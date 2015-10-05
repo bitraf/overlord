@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/bitraf/overlord/config"
-	"github.com/bitraf/overlord/log"
+	"github.com/bitraf/overlord/logging"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
@@ -20,7 +20,7 @@ func (db *Database) Open() {
 	conf := config.C.Database
 	engine, err := gorm.Open(conf.Driver, conf.Url)
 	if err != nil {
-		log.Panic(err.Error())
+		logging.Panic(err.Error())
 	}
 
 	db.engine = &engine

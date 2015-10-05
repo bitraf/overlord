@@ -6,7 +6,7 @@ import (
 
 	"github.com/bitraf/overlord/config"
 	"github.com/bitraf/overlord/db"
-	"github.com/bitraf/overlord/log"
+	"github.com/bitraf/overlord/logging"
 )
 
 type Server struct {
@@ -24,7 +24,7 @@ func (s *Server) Start() {
 	router := s.NewRouter()
 
 	addr := config.C.Server.Addr
-	log.Infof("Starting rest endpoins", log.Fields{"addr": addr})
+	logging.Infof("Starting server listening on %s", addr)
 
 	s.startTime = time.Now()
 	// log.Fatal(http.ListenAndServe(addr, router))

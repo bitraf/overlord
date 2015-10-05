@@ -1,10 +1,6 @@
 package db
 
-import (
-	"fmt"
-
-	"github.com/bitraf/overlord/log"
-)
+import "github.com/bitraf/overlord/logging"
 
 type logger interface {
 	Print(v ...interface{})
@@ -22,9 +18,9 @@ func (logger gormLogger) Print(v ...interface{}) {
 
 	if level == "sql" {
 		time := v[2]
-		log.Debugf(fmt.Sprintf("%s", v[3]), log.Fields{"time": time})
+		logging.Debugf("%s (time = %s)", v[3], time)
 	} else {
-		log.Debug(fmt.Sprintf("%s", v[2]))
+		logging.Debugf("%s", v[2])
 	}
 }
 

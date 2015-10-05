@@ -2,10 +2,11 @@ package config
 
 import (
 	"io/ioutil"
+	"log"
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/bitraf/overlord/log"
+	"github.com/bitraf/overlord/logging"
 	"github.com/codegangsta/cli"
 )
 
@@ -50,18 +51,17 @@ func Load(ctx *cli.Context) {
 	C.Version = ctx.App.Version
 
 	if !ctx.IsSet("config") {
-		log.Debug("Config file not set. Using defaults.")
+		logging.Info("Config file not set. Using defaults.")
 		return
 	}
 
 	name := ctx.String("config")
-	fields := log.Fields{"file": name}
 
 	data, err := ioutil.ReadFile(name)
 	if err != nil {
-		log.Panicf(err.Error(), fields)
+		log.Panicf(err.Error())
 	}
 
-	log.Debugf("Reading config file.", fields)
+	logging.Infof("Reading config file [%s].", name)
 	yaml.Unmarshal(data, &C)
 }

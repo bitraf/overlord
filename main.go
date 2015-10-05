@@ -5,7 +5,7 @@ import (
 
 	"github.com/bitraf/overlord/config"
 	"github.com/bitraf/overlord/db"
-	"github.com/bitraf/overlord/log"
+	"github.com/bitraf/overlord/logging"
 	"github.com/bitraf/overlord/rest"
 	"github.com/codegangsta/cli"
 )
@@ -24,10 +24,9 @@ func main() {
 			Value: "path/to/config.yml",
 			Usage: "configuration file to use",
 		},
-		cli.StringFlag{
-			Name:  "level",
-			Value: "info",
-			Usage: "logging level to use",
+		cli.BoolFlag{
+			Name:  "debug",
+			Usage: "debug logging on/off",
 		},
 	}
 
@@ -35,9 +34,8 @@ func main() {
 }
 
 func action(ctx *cli.Context) {
-	log.Configure(ctx)
-
-	log.Infof("Starting Overlord", log.Fields{"version": APP_VER})
+	logging.Configure(ctx)
+	logging.Infof("Starting Overlord v%s", APP_VER)
 
 	config.Load(ctx)
 
