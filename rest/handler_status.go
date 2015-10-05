@@ -6,10 +6,9 @@ import (
 
 	"github.com/bitraf/overlord/config"
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func (server *Server) getStatus(c *echo.Context) *echo.HTTPError {
+func (server *Server) getStatus(w http.ResponseWriter, r *http.Request) {
 	now := time.Now()
 	duration := now.Sub(server.startTime).String()
 
@@ -18,5 +17,5 @@ func (server *Server) getStatus(c *echo.Context) *echo.HTTPError {
 		Uptime:  duration,
 	}
 
-	return c.JSON(http.StatusOK, res)
+	serveJson(w, http.StatusOK, res)
 }

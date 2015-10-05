@@ -1,42 +1,37 @@
 package rest
 
 import (
+	"encoding/json"
+	"net/http"
 	"strconv"
 
-	"github.com/labstack/echo"
+	"github.com/gorilla/mux"
 )
 
-func hasParam(c *echo.Context, name string) bool {
-	str := stringParam(c, name, "")
-	return len(str) > 0
+func queryParam(r *http.Request, name string) string {
+	return r.URL.Query().Get(name)
 }
 
-func stringParam(c *echo.Context, name string, def string) string {
-	str := c.Param(name)
+func pathParam(r *http.Request, name string) string {
+	vars := mux.Vars(r)
+	return vars[name]
+}
 
-	if len(str) == 0 {
-		str = c.Request.URL.Query().Get(name)
-	}
-
-	if len(str) == 0 {
+func parseInt(value string, def int) int {
+	if len(value) == 0 {
 		return def
 	}
 
-	return str
-}
-
-func intParam(c *echo.Context, name string, def int) int {
-	str := stringParam(c, name, "")
-
-	if len(str) == 0 {
-		return def
-	}
-
-	val, err := strconv.Atoi(str)
-
+	val, err := strconv.Atoi(value)
 	if err != nil {
 		return def
 	}
 
 	return val
+}
+
+func serveJson(w http.ResponseWriter, status int, result interface{}) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(result)
 }

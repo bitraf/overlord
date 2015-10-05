@@ -1,43 +1,39 @@
 package rest
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func (server *Server) getMembers(c *echo.Context) *echo.HTTPError {
+func (server *Server) getMembers(w http.ResponseWriter, r *http.Request) {
 	query := db.MemberQuery{}
 
-	query.Offset = intParam(c, "offset", 0)
-	query.Limit = intParam(c, "limit", 10)
+	query.Offset = parseInt(queryParam(r, "offset"), 0)
+	query.Limit = parseInt(queryParam(r, "limit"), 10)
 	query.Template = db.Member{}
 
-	if hasParam(c, "byUser") {
-		query.Template.Account = intParam(c, "byUser", -1)
+	byUser := queryParam(r, "byUser")
+	if len(byUser) > 0 {
+		query.Template.Account = parseInt(byUser, -1)
 	}
 
 	server.db.FindMembers(&query)
 
 	result := model.ToMembersResult(query)
-	return c.JSON(http.StatusOK, result)
+	serveJson(w, http.StatusOK, result)
 }
 
-func (server *Server) getMemberById(c *echo.Context) *echo.HTTPError {
+func (server *Server) getMemberById(w http.ResponseWriter, r *http.Request) {
 	row := db.Member{}
-	row.Id = intParam(c, "id", -1)
+	row.Id = parseInt(pathParam(r, "id"), -1)
 
 	has := server.db.FindMember(&row)
 	if !has {
-		return errorJson(c, http.StatusNotFound,
-			fmt.Sprintf("Could not find member [%v]", row.Id))
+		errorJson(w, http.StatusNotFound, "Could not find member [%v]", row.Id)
+		return
 	}
 
-	return c.JSON(
-		http.StatusOK,
-		model.ToMemberDetail(row),
-	)
+	serveJson(w, http.StatusOK, model.ToMemberDetail(row))
 }

@@ -5,26 +5,27 @@ import (
 
 	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func (server *Server) getEvents(c *echo.Context) *echo.HTTPError {
+func (server *Server) getEvents(w http.ResponseWriter, r *http.Request) {
 	query := db.EventQuery{}
 
-	query.Offset = intParam(c, "offset", 0)
-	query.Limit = intParam(c, "limit", 10)
+	query.Offset = parseInt(queryParam(r, "offset"), 0)
+	query.Limit = parseInt(queryParam(r, "limit"), 10)
 	query.Template = db.Event{}
 
-	if hasParam(c, "byUser") {
-		query.Template.Account = intParam(c, "byUser", -1)
+	byUser := queryParam(r, "byUser")
+	if len(byUser) > 0 {
+		query.Template.Account = parseInt(byUser, -1)
 	}
 
-	if hasParam(c, "byType") {
-		query.Template.Type = stringParam(c, "byType", "")
+	byType := queryParam(r, "byType")
+	if len(byType) > 0 {
+		query.Template.Type = byType
 	}
 
 	server.db.FindEvents(&query)
 
 	result := model.ToEventsResult(query)
-	return c.JSON(http.StatusOK, result)
+	serveJson(w, http.StatusOK, result)
 }

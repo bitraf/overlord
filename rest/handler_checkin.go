@@ -5,26 +5,27 @@ import (
 
 	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func (server *Server) getCheckins(c *echo.Context) *echo.HTTPError {
+func (server *Server) getCheckins(w http.ResponseWriter, r *http.Request) {
 	query := db.CheckinQuery{}
 
-	query.Offset = intParam(c, "offset", 0)
-	query.Limit = intParam(c, "limit", 10)
+	query.Offset = parseInt(queryParam(r, "offset"), 0)
+	query.Limit = parseInt(queryParam(r, "limit"), 10)
 	query.Template = db.Checkin{}
 
-	if hasParam(c, "byUser") {
-		query.Template.Account = intParam(c, "byUser", -1)
+	byUser := queryParam(r, "byUser")
+	if len(byUser) > 0 {
+		query.Template.Account = parseInt(byUser, -1)
 	}
 
-	if hasParam(c, "byType") {
-		query.Template.Type = stringParam(c, "byType", "")
+	byType := queryParam(r, "byType")
+	if len(byType) > 0 {
+		query.Template.Type = byType
 	}
 
 	server.db.FindCheckins(&query)
 
 	result := model.ToCheckinsResult(query)
-	return c.JSON(http.StatusOK, result)
+	serveJson(w, http.StatusOK, result)
 }

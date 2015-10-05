@@ -25,4 +25,5 @@ func (db *Database) Open() {
 
 	db.engine = &engine
 	db.engine.LogMode(conf.ShowSQL)
+	db.engine.SetLogger(newLogger())
 }

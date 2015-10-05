@@ -1,10 +1,18 @@
 package rest
 
 import (
+	"fmt"
+	"net/http"
+
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func errorJson(c *echo.Context, code int, message string) *echo.HTTPError {
-	return c.JSON(code, model.Error{Code: code, Message: message})
+func errorJson(w http.ResponseWriter, code int, message string, args ...interface{}) {
+	err := model.Error{Code: code, Message: message}
+
+	if len(args) > 0 {
+		err.Message = fmt.Sprintf(message, args)
+	}
+
+	serveJson(w, code, err)
 }

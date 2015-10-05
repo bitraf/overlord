@@ -5,26 +5,27 @@ import (
 
 	"github.com/bitraf/overlord/db"
 	"github.com/bitraf/overlord/model"
-	"github.com/labstack/echo"
 )
 
-func (server *Server) getAuthEntries(c *echo.Context) *echo.HTTPError {
+func (server *Server) getAuthEntries(w http.ResponseWriter, r *http.Request) {
 	query := db.AuthEntryQuery{}
 
-	query.Offset = intParam(c, "offset", 0)
-	query.Limit = intParam(c, "limit", 10)
+	query.Offset = parseInt(queryParam(r, "offset"), 0)
+	query.Limit = parseInt(queryParam(r, "limit"), 10)
 	query.Template = db.AuthEntry{}
 
-	if hasParam(c, "byUser") {
-		query.Template.Account = intParam(c, "byUser", -1)
+	byUser := queryParam(r, "byUser")
+	if len(byUser) > 0 {
+		query.Template.Account = parseInt(byUser, -1)
 	}
 
-	if hasParam(c, "byRealm") {
-		query.Template.Realm = stringParam(c, "byRealm", "")
+	byRealm := queryParam(r, "byRealm")
+	if len(byRealm) > 0 {
+		query.Template.Realm = byRealm
 	}
 
 	server.db.FindAuthEntries(&query)
 
 	result := model.ToAuthEntriesResult(query)
-	return c.JSON(http.StatusOK, result)
+	serveJson(w, http.StatusOK, result)
 }
